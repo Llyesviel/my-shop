@@ -1,25 +1,18 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { fetchProducts } from '../api/products';
-
-export const loadProducts = createAsyncThunk(
-  'products/loadProducts',
-  async () => {
-    const products = await fetchProducts();
-    return products;
-  }
-);
-
 const productsSlice = createSlice({
   name: 'products',
   initialState: {
     items: [],
     status: 'idle',
     error: null,
-    category: 'Все', // Добавляем состояние для категории
+    category: 'Все',
+    sortBy: 'default', // Добавляем состояние для сортировки
   },
   reducers: {
     setCategory: (state, action) => {
       state.category = action.payload;
+    },
+    setSortBy: (state, action) => {
+      state.sortBy = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -38,5 +31,5 @@ const productsSlice = createSlice({
   },
 });
 
-export const { setCategory } = productsSlice.actions;
+export const { setCategory, setSortBy } = productsSlice.actions;
 export default productsSlice.reducer;

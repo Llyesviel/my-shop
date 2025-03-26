@@ -1,10 +1,13 @@
 import React from 'react';
-import { Card, CardContent, CardMedia, Typography, Button, useTheme } from '@mui/material';
+import { Card, CardContent, CardMedia, Typography, Button, useTheme, Box, IconButton } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 import { motion } from 'framer-motion';
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../features/cartSlice';
+import { deleteProduct } from '../features/productsSlice';
 
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product, onEdit }) => {
   const dispatch = useDispatch();
   const theme = useTheme();
   const isDarkMode = theme.palette.mode === 'dark';
@@ -12,13 +15,57 @@ const ProductCard = ({ product }) => {
   const hoverColor = isDarkMode ? '#5a2485' : '#c9a0fc';
   const textColor = isDarkMode ? 'white' : '#333';
 
+  const handleDelete = (e) => {
+    e.stopPropagation();
+    if (window.confirm(`Вы уверены, что хотите удалить товар "${product.title}"?`)) {
+      dispatch(deleteProduct(product.id));
+    }
+  };
+
+  const handleEdit = (e) => {
+    e.stopPropagation();
+    if (onEdit) onEdit(product);
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <Card sx={{ maxWidth: 400, margin: 2, boxShadow: 3, height: 430, display: 'flex', flexDirection: 'column' }}>
+      <Card sx={{ maxWidth: 400, margin: 2, boxShadow: 3, height: 430, display: 'flex', flexDirection: 'column', position: 'relative' }}>
+        {/* Кнопки управления */}
+        <Box sx={{ 
+          position: 'absolute', 
+          top: 10, 
+          right: 10, 
+          display: 'flex', 
+          backgroundColor: 'rgba(0,0,0,0.4)',
+          borderRadius: '8px',
+          padding: '2px'
+        }}>
+          <IconButton 
+            size="small" 
+            onClick={handleEdit}
+            sx={{ 
+              color: 'white',
+              '&:hover': { color: isDarkMode ? '#c9a0fc' : '#dab8fc' }
+            }}
+          >
+            <EditIcon />
+          </IconButton>
+          <IconButton 
+            size="small" 
+            onClick={handleDelete}
+            sx={{ 
+              color: 'white',
+              '&:hover': { color: '#ffcccb' }
+            }}
+          >
+            <DeleteIcon />
+          </IconButton>
+        </Box>
+
         <CardMedia
           component="img"
           height="200"

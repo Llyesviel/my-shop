@@ -29,6 +29,24 @@ const productsSlice = createSlice({
     setSearchQuery: (state, action) => {
       state.searchQuery = action.payload;
     },
+    // Добавление нового товара
+    addProduct: (state, action) => {
+      state.items.push({
+        id: Date.now(), // Простой способ генерации уникального ID
+        ...action.payload,
+      });
+    },
+    // Редактирование существующего товара
+    editProduct: (state, action) => {
+      const index = state.items.findIndex(item => item.id === action.payload.id);
+      if (index !== -1) {
+        state.items[index] = action.payload;
+      }
+    },
+    // Удаление товара
+    deleteProduct: (state, action) => {
+      state.items = state.items.filter(item => item.id !== action.payload);
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -46,5 +64,12 @@ const productsSlice = createSlice({
   },
 });
 
-export const { setCategory, setSortBy, setSearchQuery } = productsSlice.actions;
+export const { 
+  setCategory, 
+  setSortBy, 
+  setSearchQuery, 
+  addProduct, 
+  editProduct, 
+  deleteProduct 
+} = productsSlice.actions;
 export default productsSlice.reducer;

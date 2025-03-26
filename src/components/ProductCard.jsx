@@ -47,7 +47,8 @@ const ProductCard = ({ product }) => {
                 textOverflow: 'ellipsis', 
                 display: '-webkit-box', 
                 WebkitLineClamp: 4, 
-                WebkitBoxOrient: 'vertical'
+                WebkitBoxOrient: 'vertical',
+                whiteSpace: 'pre-line'
               }}
             >
               {product.description}

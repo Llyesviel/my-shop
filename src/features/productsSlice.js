@@ -15,8 +15,13 @@ const productsSlice = createSlice({
     items: [],
     status: 'idle',
     error: null,
+    category: 'Все', // Добавляем состояние для категории
   },
-  reducers: {},
+  reducers: {
+    setCategory: (state, action) => {
+      state.category = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(loadProducts.pending, (state) => {
@@ -33,4 +38,5 @@ const productsSlice = createSlice({
   },
 });
 
+export const { setCategory } = productsSlice.actions;
 export default productsSlice.reducer;

@@ -30,18 +30,36 @@ const ProductCard = ({ product }) => {
             backgroundColor: isDarkMode ? '#2c2c2c' : '#f5f5f5'
           }}
         />
-        <CardContent sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+        <CardContent sx={{ 
+          flexGrow: 1, 
+          display: 'flex', 
+          flexDirection: 'column', 
+          justifyContent: 'space-between', 
+          height: '190px' 
+        }}>
           <div>
-            <Typography variant="h6">{product.title}</Typography>
-            <Typography variant="body2">{product.description}</Typography>
+            <Typography variant="h6" sx={{ mb: 1 }}>{product.title}</Typography>
+            <Typography 
+              variant="body2" 
+              sx={{ 
+                height: '80px', 
+                overflow: 'hidden', 
+                textOverflow: 'ellipsis', 
+                display: '-webkit-box', 
+                WebkitLineClamp: 4, 
+                WebkitBoxOrient: 'vertical'
+              }}
+            >
+              {product.description}
+            </Typography>
           </div>
-          <div>
-            <Typography variant="h5" sx={{ my: 1 }}>{product.price}$</Typography>
+          <div style={{ marginTop: 'auto' }}>
+            <Typography variant="h5" sx={{ my: 1 }}>{product.price} VP</Typography>
             <Button
               variant="contained"
+              fullWidth
               onClick={() => dispatch(addToCart(product))}
               sx={{ 
-                mt: 1,
                 backgroundColor: bgColor,
                 color: textColor,
                 fontWeight: 'bold',

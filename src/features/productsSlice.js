@@ -5,7 +5,8 @@ const productsSlice = createSlice({
     status: 'idle',
     error: null,
     category: 'Все',
-    sortBy: 'default', // Добавляем состояние для сортировки
+    sortBy: 'default',
+    searchQuery: '', // Добавляем состояние для поискового запроса
   },
   reducers: {
     setCategory: (state, action) => {
@@ -13,6 +14,9 @@ const productsSlice = createSlice({
     },
     setSortBy: (state, action) => {
       state.sortBy = action.payload;
+    },
+    setSearchQuery: (state, action) => {
+      state.searchQuery = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -31,5 +35,5 @@ const productsSlice = createSlice({
   },
 });
 
-export const { setCategory, setSortBy } = productsSlice.actions;
+export const { setCategory, setSortBy, setSearchQuery } = productsSlice.actions;
 export default productsSlice.reducer;

@@ -19,19 +19,10 @@
 
 3. **Запуск сервера разработки**
    ```bash
+   json-server --watch public/data.json --port 3001
    npm run dev
    ```
    После запуска приложение будет доступно по адресу: [http://localhost:5173](http://localhost:5173)
-
-4. **Сборка для продакшена**
-   ```bash
-   npm run build
-   ```
-
-5. **Предварительный просмотр продакшен-сборки**
-   ```bash
-   npm run preview
-   ```
 
 ### Особенности проекта
 - **Фреймворк**: React с Vite
